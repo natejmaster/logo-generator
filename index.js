@@ -1,6 +1,7 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const path = require('path');
+const { Circle, Triangle, Square } = require('./lib/shapes');
 
 //Questions for inquirer to ask
 const questions = [
@@ -32,7 +33,17 @@ function init() {
     inquirer
         .prompt(questions)
         .then((data) => {
-            const svgContent = `<svg width='300' height='200' xmlns='http://www.w3.org/2000/svg'>`;
+            let shape;
+            if (data.shape === 'circle') {
+                shape = new Circle(data.radius, data.shapeColor);
+            } else if (data.shape === 'triangle') {
+                shape = new Triangle(data.points, data.shapeColor);
+            } else if (data.shape === 'square') {
+                shape = new Square(data.sideLength, data.shapeColor);
+            }
+            const svgContent = `<svg width='300' height='200' xmlns='http://www.w3.org/2000/svg'>
+                ${shape.render()}
+                </svg>`;
             //This is where I will put the information on how to use the data to create the svg file
             const outputPath = path.join(__dirname, 'logo.svg');
             fs.writeFileSync(outputPath, svgContent);
