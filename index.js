@@ -1,3 +1,4 @@
+//Required resources and packages necessary for application's function
 const inquirer = require('inquirer');
 const fs = require('fs');
 const path = require('path');
@@ -15,7 +16,7 @@ function validateColor(input) {
     return true;
 }
 
-//Questions for inquirer to ask
+//Questions for inquirer to ask the user
 const questions = [
     {
         type: 'list',
@@ -54,7 +55,9 @@ const questions = [
 //Init function calls inquirer, displays the prompt questions in the terminal, and renders a logo with the data collected.
 function init() {
     inquirer
+        //Inquirer asks questions to user
         .prompt(questions)
+        //Once data is collected, the shape attribute defines which class will be used.
         .then((data) => {
             let shape;
             if (data.shape === 'circle') {
@@ -64,24 +67,28 @@ function init() {
             } else if (data.shape === 'square') {
                 shape = new Square(data.shapeColor);
             }
+            //The shape then has its color set based on the data pulled from the inquirer prompts
             shape.setColor(data.shapeColor);
-
+            //This small variable adjustment moves the text lower in the 'triangle' case to properly fit the max length of three characters
             let textY;
+            //If the logo is a triangle, the text element's "Y" property is '160'
             if (data.shape === 'triangle') {
                 textY = '160';
+            //In the cases of the circle and square, the "Y" property is set to '120'
             } else {
                 textY = '120';
             }
-
+            // svgContent variable is given the value of a template literal with image parameters and a shape element contingent upon the response from the inquirer query.
             const svgContent = `<svg version='1.1' width='300' height='200' xmlns='http://www.w3.org/2000/svg'>
                 ${shape.render()}
                 <text x='150' y='${textY}' text-anchor='middle' font-size='60' fill='${data.textColor}'>
                         ${data.logoText}
                     </text>
                 </svg>`;
-            //This is where I will put the information on how to use the data to create the svg file
+            //The image html code is rendered on a document titled 'logo.svg'
             const outputPath = path.join(__dirname, 'logo.svg');
             fs.writeFileSync(outputPath, svgContent);
+            //A success message is printed in the console
             console.log('Generated logo.svg')
         });
 }
