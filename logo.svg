@@ -1,6 +1,6 @@
-<svg width='300' height='200' xmlns='http://www.w3.org/2000/svg'>
-                <polygon points='150,30 240,170 60,170' fill='Red' />
-                <text x="150" y="120" text-anchor="middle" font-family="Arial" font-size="20" fill="White">
-                        NJM
+<svg version='1.1' width='300' height='200' xmlns='http://www.w3.org/2000/svg'>
+                <polygon points='150,30 240,170 60,170' fill='green' />
+                <text x='150' y='160' text-anchor='middle' font-size='60' fill='white'>
+                        B
                     </text>
                 </svg>
