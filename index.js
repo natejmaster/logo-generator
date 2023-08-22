@@ -3,6 +3,18 @@ const fs = require('fs');
 const path = require('path');
 const { Circle, Triangle, Square } = require('./lib/shapes');
 
+// Function to validate color input (either color name or hex code)
+function validateColor(input) {
+    // Regular expression to validate hex color code (#RRGGBB or #RGB) THIS REGULAR EXPRESSION WAS GENERATED USING REGEXR.COM
+    const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+
+    // Check if the input is either a valid color name or a valid hex color code. THIS REGULAR EXPRESSION WAS GENERATED USING REGEXR.COM
+    if (!input || !(/^[a-zA-Z]+$/.test(input) || hexColorRegex.test(input))) {
+        return "Please enter a valid color name or hex color code.";
+    }
+    return true;
+}
+
 //Questions for inquirer to ask
 const questions = [
     {
@@ -15,12 +27,7 @@ const questions = [
         type: 'input',
         name: 'shapeColor',
         message: 'What color do you want your SHAPE to be? (you may input a color keyword(ex-red, cyan, etc.) or a hexidecimal number (ex- #4CBB17))',
-        validate: function (input) {
-            if (!input) {
-                return "Please enter a color for the shape.";
-            }
-            return true;
-        }
+        validate: validateColor,
     },
     {
         type: 'input',
@@ -36,10 +43,11 @@ const questions = [
     {
         type: 'input',
         name: 'textColor',
-        message: 'What color do you want your TEXT to be? (you may input a color keyword(ex-red, cyan, etc.) or a hexidecimal number (ex- #4CBB17)). If no text, leave this blank.',
+        message: 'What color do you want your TEXT to be? (you may input a color keyword(ex-red, cyan, etc.) or a hexidecimal number (ex- #4CBB17)).',
         when: function (answers) {
             return answers.logoText !== '';
-        }
+        },
+        validate: validateColor,
     }
 ];
 
