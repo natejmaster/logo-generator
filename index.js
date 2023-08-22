@@ -35,15 +35,18 @@ function init() {
         .then((data) => {
             let shape;
             if (data.shape === 'circle') {
-                shape = new Circle(data.radius, data.shapeColor);
+                shape = new Circle(data.shapeColor);
             } else if (data.shape === 'triangle') {
-                shape = new Triangle(data.points, data.shapeColor);
+                shape = new Triangle(data.shapeColor);
             } else if (data.shape === 'square') {
-                shape = new Square(data.sideLength, data.shapeColor);
+                shape = new Square(data.shapeColor);
             }
             shape.setColor(data.shapeColor);
             const svgContent = `<svg width='300' height='200' xmlns='http://www.w3.org/2000/svg'>
                 ${shape.render()}
+                <text x="150" y="120" text-anchor="middle" font-family="Arial" font-size="20" fill="${data.textColor}">
+                        ${data.logoText}
+                    </text>
                 </svg>`;
             //This is where I will put the information on how to use the data to create the svg file
             const outputPath = path.join(__dirname, 'logo.svg');
