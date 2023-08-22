@@ -1,4 +1,6 @@
 const inquirer = require('inquirer');
+const fs = require('fs');
+const path = require('path');
 
 //Questions for inquirer to ask
 const questions = [
@@ -30,7 +32,11 @@ function init() {
     inquirer
         .prompt(questions)
         .then((data) => {
+            const svgContent = `<svg width='300' height='200' xmlns='http://www.w3.org/2000/svg'>`;
             //This is where I will put the information on how to use the data to create the svg file
+            const outputPath = path.join(__dirname, 'logo.svg');
+            fs.writeFileSync(outputPath, svgContent);
+            console.log('Generated logo.svg')
         });
 }
 
