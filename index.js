@@ -4,13 +4,24 @@ const inquirer = require('inquirer');
 const questions = [
     {
         type: 'input',
-        name: 'projectTitle',
-        message: 'What is the title of your project?',
+        name: 'logoText',
+        message: 'List up to three characters to be used as text in your logo (if you dont require characters, leave this blank)',
     },
     {
         type: 'input',
-        name: 'descriptionWhat',
-        message: 'What does your project do, or in other words, what problem does your project solve?',
+        name: 'textColor',
+        message: 'What color do you want your TEXT to be? (you may input a color keyword(ex-red, cyan, etc.) or a hexidecimal number (ex- #4CBB17))',
+    },
+    {
+        type: 'list',
+        name: 'shape',
+        message: 'Choose a shape for your logo:',
+        choices: ['circle', 'triangle', 'square'],
+    },
+    {
+        type: 'input',
+        name: 'shapeColor',
+        message: 'What color do you want your SHAPE to be? (you may input a color keyword(ex-red, cyan, etc.) or a hexidecimal number (ex- #4CBB17))',
     },
 ];
 
